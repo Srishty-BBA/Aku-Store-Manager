@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f1e4cf"><title>House of AKU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f1e4cf;--card:#fbf3e6;--ink:#33221f;--mut:#8a7566;--line:#e3d1b4;--maroon:#47000f;--maroon-dp:#310009;--mm:#8a4a4f;--bad:#a3262a;--serif:"Fraunces",Georgia,serif;--sans:"Karla",system-ui,-apple-system,"Segoe UI",sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 110px}
+h1{font-family:var(--serif);font-weight:600;font-size:1.6rem;margin:0 0 10px;color:var(--maroon)}
+.sub{color:var(--mut);font-size:.84rem;margin:0}
+.tabs{display:flex;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;padding:11px 2px;border:0;border-bottom:3px solid transparent;background:none;color:var(--mut);font:inherit;font-size:.92rem;font-weight:700;cursor:pointer;margin-bottom:-1px}
+.tabs button[aria-selected=true]{color:var(--maroon);border-bottom-color:var(--maroon)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:4px;margin-bottom:14px}
+.card>.hd{font-family:var(--serif);font-style:italic;color:var(--mm);padding:12px 14px 8px;font-size:1.05rem;border-bottom:1px solid var(--line)}
+.card>.bd{padding:14px}
+label{display:block;font-size:.72rem;color:var(--mut);font-weight:700;margin:10px 0 3px}
+input,textarea,select{width:100%;padding:11px 10px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);font:inherit;font-size:1rem}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--maroon)}
+textarea{min-height:60px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:130px}
+.act{padding:12px 16px;border-radius:4px;border:1px solid var(--maroon);background:var(--maroon);color:#fbf3e6;font:inherit;font-weight:700;font-size:.95rem;cursor:pointer}
+.act.ghost{background:none;color:var(--maroon)}
+.mini{padding:8px 13px;font:inherit;font-size:.85rem;border-radius:4px;border:1px solid var(--line);background:none;color:var(--maroon);font-weight:700;cursor:pointer}
+.pm{width:40px;height:40px;padding:0;font-size:1.25rem}
+.item{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}.nm{flex:1;min-width:0}.nm b{display:block;font-size:.93rem}
+.nm span{color:var(--mut);font-size:.78rem}.fold{cursor:pointer}
+.q{min-width:34px;text-align:center;font-weight:800;font-size:1.1rem}
+.item.low .q,.item.low .nm b{color:var(--bad)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:8px 0}
+.chip{border:1px solid var(--line);background:none;color:var(--ink);border-radius:99px;padding:6px 13px;font:inherit;font-size:.82rem;white-space:nowrap;cursor:pointer}
+.chip.on{background:var(--maroon);color:#fbf3e6;border-color:var(--maroon)}
+h4{margin:14px 0 2px;color:var(--mm);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em}
+.empty{color:var(--mut);padding:14px 0;text-align:center;font-style:italic;font-family:var(--serif)}
+.tot{display:flex;justify-content:space-between;padding:4px 0}
+.tot.big{font-family:var(--serif);font-weight:600;font-size:1.2rem;border-top:1px solid var(--line);margin-top:6px;padding-top:9px;color:var(--maroon)}
+.hide{display:none!important}
+#bar{position:fixed;left:0;right:0;bottom:0;background:var(--maroon);color:#fbf3e6;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;z-index:5}
+#bar div{flex:1;font-weight:700}#bar small{display:block;font-weight:400;opacity:.8}
+#bar button{background:#fbf3e6;color:var(--maroon);border:0;border-radius:4px;padding:11px 16px;font:inherit;font-weight:800}
+dialog{border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);width:min(92vw,420px);max-height:86vh}
+dialog::backdrop{background:#0007}
+#bill{background:#fbf3e6;color:#33221f;padding:26px;border:1px solid var(--line)}
+#bill h2{margin:0;font-family:var(--serif);font-size:1.5rem;color:var(--maroon)}
+#bill .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;margin:16px 0;font-size:.85rem}
+#bill table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:420px}
+#bill th{text-align:left;border-bottom:2px solid var(--maroon);color:var(--maroon);padding:7px 6px;font-size:.72rem}
+#bill td{padding:7px 6px;border-bottom:1px solid #ece4d3}#bill .num{text-align:right}
+#bill .foot{margin-top:16px;font-size:.78rem;color:#8b8370;border-top:1px solid #ece4d3;padding-top:12px}
+#bill .sumbox{margin-left:auto;max-width:290px;margin-top:12px;font-size:.9rem}
+@media print{body{background:#fff}.noprint{display:none!important}.wrap{padding:0;max-width:none}#bill{border:0;padding:0}}
+.tabs button{font-size:.84rem}.chip{flex:none}
+</style></head><body>
+<div class="wrap">
+<div id="ui" class="noprint">
+ <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><h1 style="margin:0;flex:1">House of AKU</h1><span id="sync" class="sub" style="font-size:.72rem"></span><button id="t3" class="mini" onclick="tab(3)">⚙ Setup</button></div>
+ <div class="tabs">
+  <button id="t0" aria-selected="true" onclick="tab(0)">Order</button><button id="t4" onclick="tab(4)">Orders</button><button id="t1" onclick="tab(1)">Stock</button><button id="t2" onclick="tab(2)">Make</button><button id="t5" onclick="tab(5)">Report</button>
+ </div>
+
+ <div id="p0">
+  <div class="card"><div class="bd">
+   <input id="sq" placeholder="🔍 Search code or name (e.g. naruto, MM-F1)" oninput="q=this.value;drawList()">
+   <div class="chips" id="lch"></div><div id="list"></div></div></div>
+  <div class="card" id="co"><div class="hd">Checkout</div><div class="bd">
+   <div id="cart"></div><div id="sums"></div>
+   <label>Customer name (leave blank for walk-in)</label><input id="cName">
+   <label>Address</label><textarea id="cAddr" placeholder="Only needed for delivery"></textarea>
+   <div class="row"><div><label>Phone / handle</label><input id="cPhone"></div><div><label>Order date</label><input id="cDate" type="date"></div></div>
+   <div class="row"><div><label>Discount ₹</label><input id="cDis" type="number" min="0" value="0" oninput="drawCart()"></div><div><label>Shipping ₹</label><input id="cShip" type="number" min="0" value="0" oninput="drawCart()"></div></div>
+   <div class="row"><div><label>Payment</label><select id="cPay"><option>Paid — UPI</option><option>Paid — Cash</option><option>Paid — Bank transfer</option><option>Advance paid, balance on delivery</option><option>Cash on delivery</option></select></div><div><label>Bill no.</label><input id="cNo"></div></div>
+   <label>Note to customer</label><input id="cNote" placeholder="Thank you for your order!">
+   <div class="row" style="margin-top:14px"><button class="act" onclick="make()">Generate bill</button><button class="act ghost" onclick="clearAll()">Clear order</button></div>
+  </div></div>
+ </div>
+
+ <div id="p1" class="hide"><div class="card"><div class="bd">
+  <div class="chips" id="chips"></div><div id="stk"></div>
+  <div style="margin-top:12px"><button class="act" onclick="itemEd('')">+ Add material / packaging</button></div>
+  <p class="sub" style="margin-top:10px">Tap − / + to adjust, tap a number to set the exact count, tap a name to edit. Bills deduct finished stock automatically.</p></div></div></div>
+
+ <div id="p2" class="hide">
+  <div class="card"><div class="hd">What to make this week</div><div class="bd" id="planBox"></div></div>
+  <div class="card"><div class="hd">I made something</div><div class="bd" id="madeBox"></div></div>
+  <div class="card"><div class="hd">Recent stock changes</div><div class="bd"><div id="recent"></div><div style="margin-top:10px"><button class="mini" onclick="iundo()">Undo last change</button></div></div></div>
+ </div>
+
+ <div id="p4" class="hide"><div class="card"><div class="bd"><div class="chips" id="ochips"></div><p class="sub" id="odue" style="color:var(--bad);font-weight:700"></p><div id="olist"></div><p class="sub" style="margin-top:10px">Orders appear here automatically when you generate a bill. Tap one for tracking, courier cost, payment status and message templates.</p></div></div></div>
+ <div id="p5" class="hide"><div class="card"><div class="bd"><label>Period</label><select id="rm" onchange="drawReport()"></select></div></div><div id="rbox"></div></div>
+
+ <div id="p3" class="hide">
+  <div class="card"><div class="hd">What things cost me</div><div class="bd"><p class="sub" style="margin-bottom:6px">Enter what you pay per unit for each material and packaging item. This gives your real cost and profit per product.</p><div id="costs"></div></div></div>
+  <div class="card"><div class="hd">Prices &amp; profit</div><div class="bd"><p class="sub">Memo pads are set to ₹40 from your catalogue. Bookmark prices weren't in the catalogue, so enter them once here.</p><div id="prices"></div></div></div>
+  <div class="card"><div class="hd">Shop details (on the bill)</div><div class="bd">
+   <label>Business name</label><input id="sName"><label>Tagline</label><input id="sTag"><label>Email</label><input id="sMail"><label>Instagram</label><input id="sSocial"><label>City / State</label><input id="sLoc"><label>Footer line</label><input id="sFoot">
+   <div style="margin-top:12px"><button class="act" onclick="saveShop()">Save</button> <span id="sOk" class="sub"></span></div></div></div>
+  <div class="card"><div class="hd">Backup</div><div class="bd"><p class="sub" style="margin-bottom:8px">Data is stored only in this browser. Copy this text somewhere safe now and then.</p>
+   <textarea id="bkT"></textarea><div class="row" style="margin-top:10px"><button class="act ghost" onclick="bk()">Show backup</button><button class="act ghost" onclick="rst()">Restore from text</button></div></div></div>
+ </div>
+</div>
+
+<div id="billWrap" class="hide">
+ <div class="noprint" style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+  <button class="act" onclick="window.print()">🖨 Print / Save as PDF</button><button class="act ghost" onclick="back()">Back to order</button>
+  <div id="stockMsg" style="flex-basis:100%;color:var(--maroon);font-size:.85rem;font-weight:700"></div></div>
+ <div style="overflow-x:auto"><div id="bill"></div></div>
+</div>
+</div>
+<div id="bar" class="hide noprint"><div id="barT"></div><button onclick="document.getElementById('co').scrollIntoView({behavior:'smooth'})">Checkout ↓</button></div>
+<dialog id="dlg"><div id="dc"></div></dialog>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rs=v=>'₹'+(Math.round(v*100)/100).toLocaleString('en-IN');
+const A=(pre,w,ns,size)=>ns.map((n,i)=>({c:pre+('000'+(i+1)).slice(-w),n:n,s:size}));
+const MS='7 x 6.5 cm',BS='1.7 x 5.5 in';
+const LN=[
+{id:'mani',n:'Anime memo pads',t:'memo',it:A('MM-ANI-',3,['Jujutsu Kaisen — Gojo','Naruto','Demon Slayer — Tanjiro','Demon Slayer — Nezuko','Demon Slayer — Giyu','Demon Slayer — Zenitsu','Demon Slayer — Shinobu','Demon Slayer — Spider Lily','Demon Slayer — Muichiro','Weathering with You','Dandadan','Horimiya'],MS)},
+{id:'mf1',n:'F1 memo pads',t:'memo',it:A('MM-F1-',3,['Red lap time','Race notes','Pit lane','Yellow flash','Orange sprint','Green machine'],MS)},
+{id:'mpas',n:'Pastel memo pads',t:'memo',it:A('MM-PAS-',3,['Strawberry pop','Teddy picnic','Capybara hot spring','Sakura'],MS)},
+{id:'mcrt',n:'Cozy Critters memo pads',t:'memo',it:A('MM-CRT-',3,['Paper boat frog','Acorn squirrel','Moth & lamp','Rooftop goat','Busy ant','Bubble fish','Charging sparrow','Chai kitten'],MS)},
+{id:'bbld',n:'Anime (Bold) bookmarks',t:'bm',it:A('NBM-ANI-BLD-B',2,['Attack on Titan','Demon Slayer','Naruto','One Piece'],'2 x 6 in').concat(A('NBM-ANI-BLD-A',2,['Naruto','Sasuke','Kakashi','Minato','Itachi','Madara','Naruto (Baryon mode)','Team 7'],BS),A('NBM-ANI-BLD-C',2,['Solo Leveling','Jujutsu Kaisen','Apothecary Diaries'],'2 x 8 in'))},
+{id:'bdrk',n:'Anime (Shadow) bookmarks',t:'bm',it:A('NBM-ANI-DRK-A',2,['Sukuna','Gojo','Geto','Megumi','Megumi','Gojo','Yuji','Gojo','Tanjiro','Nezuko','Giyu','Zenitsu','Inosuke','Shinobu','Rengoku','Muichiro'],BS)},
+{id:'bcte',n:'Anime (Cute) bookmarks',t:'bm',it:A('NBM-ANI-CTE-A',2,['Tanjiro','Nezuko','Giyu','Zenitsu','Inosuke','Shinobu','Rengoku','Muichiro'],BS)},
+{id:'bjpv',n:'Japanese Vintage bookmarks',t:'bm',it:A('NBM-JPV-A',2,['Moonlit Torii','Maple Pagoda','Koi Tide','Lantern Lake','Cranes at Dusk','Sakura Bridge','Bamboo Midnight','Pagoda Falls'],BS)},
+{id:'binv',n:'Indian Vintage bookmarks',t:'bm',it:A('NBM-INV-A',2,['','','','','','','',''],BS)}];
+const IDX={};LN.forEach(l=>l.it.forEach(i=>{i.l=l;IDX[i.c]=i;}));
+const LID=id=>LN.filter(l=>l.id==id)[0];
+const K='aku_v3';let S,cart={},ln='all',q='',flt='f',cur=0;
+function seedInv(){const it=[],M=(id,n,t,loc,min,u)=>it.push({id,n,t,loc,q:0,min,u});
+ M('m_paper','Memo paper sheets','m','Studio',350,'sheets');M('m_card','Cardstock (bookmark backing)','m','Studio',30,'pcs');M('m_glue','Padding glue','m','Studio',1,'bottles');
+ M('m_cover','Custom memo covers','p','Packing shelf',20,'pcs');M('m_msl','Plastic sleeves (memo pads)','p','Packing shelf',20,'pcs');M('m_bsl','Plastic sleeves (bookmarks)','p','Packing shelf',30,'pcs');M('m_mail','Shipping mailers','p','Packing shelf',20,'pcs');
+ LN.forEach(l=>it.push({id:'f_'+l.id,n:l.n,t:'f',loc:'Finished goods',q:0,min:5,u:'pcs'}));
+ const uses={};LN.forEach(l=>uses[l.id]=l.t=='memo'?{m_paper:35,m_cover:1,m_msl:1,m_glue:.02}:{m_card:1,m_bsl:1});
+ return{items:it,uses,log:[],done:[]};}
+function load(){S={px:{},shop:{},next:1,inv:null,ex:{},orders:{},ts:0};
+ try{const r=JSON.parse(localStorage.getItem(K));if(r&&r.inv)S=r;else{const o=JSON.parse(localStorage.getItem('bm_v2'));if(o){S.shop=o.shop||{};S.next=o.next||1;}}}catch(e){}
+ if(!S.inv)S.inv=seedInv();S.ex=S.ex||{};S.orders=S.orders||{};}
+let DB=null,pt=null;
+const clone=o=>JSON.parse(JSON.stringify(o));
+const oid=n=>String(n).replace(/[^A-Za-z0-9_.~:@+-]/g,'_');
+function setSync(s){const e=$('sync');if(e)e.textContent=({ok:'☁ saved online',err:'⚠ online save failed',local:'⚠ this browser only',wait:'…'})[s]||'';}
+function pushCore(){if(!DB)return;clearTimeout(pt);pt=setTimeout(()=>{DB.doc('app/core').set(clone({px:S.px,shop:S.shop,next:S.next,inv:S.inv,ex:S.ex,ts:S.ts})).then(()=>setSync('ok')).catch(()=>setSync('err'));},700);}
+const save=()=>{S.ts=Date.now();try{localStorage.setItem(K,JSON.stringify(S));}catch(e){}pushCore();};
+const pr=i=>{const v=S.px[i.l.id+'|'+i.s];return v===undefined?(i.l.t=='memo'?40:0):v;};
+function tab(i){cur=i;[0,1,2,3,4,5].forEach(x=>{$('t'+x).setAttribute('aria-selected',x===i);$('p'+x).classList.toggle('hide',x!==i);});if(i==4)drawOrders();if(i==5)drawReport();drawCart();window.scrollTo(0,0);}
+
+/* ORDER */
+function drawChips(){$('lch').innerHTML=[['all','All']].concat(LN.map(l=>[l.id,l.n])).map(c=>`<button class="chip${ln==c[0]?' on':''}" onclick="ln='${c[0]}';drawChips();drawList()">${esc(c[1])}</button>`).join('');}
+function drawList(){const t=q.toLowerCase().trim();let h='';
+ LN.forEach(l=>{if(ln!='all'&&ln!=l.id)return;
+  const rows=l.it.filter(i=>!t||(i.c+' '+i.n+' '+l.n).toLowerCase().includes(t));if(!rows.length)return;
+  h+=`<h4>${esc(l.n)}</h4>`;
+  rows.forEach(i=>{const p=pr(i),n=cart[i.c]||0;
+   h+=`<div class="item"><div class="nm"><b>${i.c}</b><span>${esc(i.n||'(design name not set)')} · ${i.s} · ${p?rs(p):'<span style="color:var(--bad)">set price in Setup</span>'}</span></div>`+
+   (n?`<button class="mini pm" onclick="inc('${i.c}',-1)">−</button><span class="q">${n}</span><button class="mini pm" onclick="inc('${i.c}',1)">+</button>`:`<button class="mini" onclick="inc('${i.c}',1)">Add</button>`)+'</div>';});});
+ $('list').innerHTML=h||'<div class="empty">No match.</div>';}
+function inc(c,d){cart[c]=(cart[c]||0)+d;if(cart[c]<=0)delete cart[c];drawList();drawCart();}
+const lbl=i=>i.l.n+' — '+(i.n?i.n+' (':'(')+i.c+')';
+function lines(){return Object.keys(cart).map(c=>{const i=IDX[c],r=pr(i);return{i,c,n:lbl(i),r,q:cart[c],t:r*cart[c]};});}
+function totals(){const L=lines(),sub=L.reduce((a,l)=>a+l.t,0),dis=Math.min(+$('cDis').value||0,sub),sh=+$('cShip').value||0;return{L,sub,dis,sh,tot:sub-dis+sh};}
+function drawCart(){const T=totals();
+ $('cart').innerHTML=T.L.map(l=>`<div class="item"><div class="nm"><b>${l.c}</b><span>${esc(l.i.n)} · ${rs(l.r)} each</span></div><button class="mini pm" onclick="inc('${l.c}',-1)">−</button><span class="q">${l.q}</span><button class="mini pm" onclick="inc('${l.c}',1)">+</button></div>`).join('')||'<div class="empty">Nothing added yet — pick items above.</div>';
+ $('sums').innerHTML=T.L.length?`<div class="tot"><span>Subtotal</span><span>${rs(T.sub)}</span></div>`+(T.dis?`<div class="tot"><span>Discount</span><span>- ${rs(T.dis)}</span></div>`:'')+(T.sh?`<div class="tot"><span>Shipping</span><span>${rs(T.sh)}</span></div>`:'')+`<div class="tot big"><span>Total</span><span>${rs(T.tot)}</span></div>`:'';
+ const n=T.L.reduce((a,l)=>a+l.q,0);$('barT').innerHTML=`${n} item${n==1?'':'s'}<small>${rs(T.tot)}</small>`;
+ $('bar').classList.toggle('hide',!(n&&cur==0&&!$('ui').classList.contains('hide')));}
+function clearAll(){cart={};['cName','cAddr','cPhone','cNote'].forEach(i=>$(i).value='');$('cShip').value=0;$('cDis').value=0;$('cNo').value=num();drawList();drawCart();}
+const num=()=>'INV-'+new Date().getFullYear()+'-'+String(S.next).padStart(3,'0');
+
+/* STOCK */
+const ig=id=>S.inv.items.filter(x=>x.id==id)[0];
+const ilow=x=>x.min>0&&x.q<=x.min;
+const rnd=v=>Math.round(v*100)/100;
+function iapply(d,tx){for(const id in d){const it=ig(id);if(it)it.q=Math.max(0,rnd(it.q+d[id]));}
+ S.inv.log.unshift({t:Date.now(),x:tx,d});S.inv.log=S.inv.log.slice(0,30);save();drawStock();drawMade();}
+function iundo(){const l=S.inv.log.shift();if(!l)return;for(const id in l.d){const it=ig(id);if(it)it.q=Math.max(0,rnd(it.q-l.d[id]));}save();drawStock();drawMade();}
+const bump=(id,v)=>iapply({[id]:v},ig(id).n+(v>0?' +1':' −1'));
+function setCount(id){const it=ig(id),v=prompt('Exact count for '+it.n+':',it.q);if(v!==null&&v!==''&&!isNaN(+v))iapply({[id]:+v-it.q},it.n+' set to '+v);}
+function bought(id){const it=ig(id),v=prompt('How many '+it.u+' of '+it.n+' did you buy?');if(v&&+v>0)iapply({[id]:+v},'Bought '+v+' '+it.n);}
+function drawStock(){const I=S.inv,nl=I.items.filter(ilow).length;
+ $('chips').innerHTML=[['f','Finished goods'],['m','Materials'],['p','Packaging'],['low','To buy / make ('+nl+')']].map(f=>`<button class="chip${flt==f[0]?' on':''}" onclick="flt='${f[0]}';drawStock()">${f[1]}</button>`).join('');
+ const L=I.items.filter(x=>flt=='low'?ilow(x):x.t==flt);
+ $('stk').innerHTML=L.map(x=>`<div class="item${ilow(x)?' low':''}"><div class="nm fold" onclick="itemEd('${x.id}')"><b>${esc(x.n)}</b><span>${esc(x.loc||'')} · alert at ${x.min} ${esc(x.u)}</span></div>`+
+  (ilow(x)&&x.t!='f'?`<button class="mini" onclick="bought('${x.id}')">Bought</button>`:'')+
+  `<button class="mini pm" onclick="bump('${x.id}',-1)">−</button><span class="q" onclick="setCount('${x.id}')">${x.q}</span><button class="mini pm" onclick="bump('${x.id}',1)">+</button></div>`).join('')||'<div class="empty">Nothing here.</div>';}
+function prev(){const p=$('mp');if(!p)return;const n=+$('mq').value||0,u=S.inv.uses[p.value]||{};
+ const t=Object.keys(u).map(id=>{const it=ig(id);return it?rnd(u[id]*n)+' '+it.u+' '+it.n:'';}).filter(Boolean);
+ $('prev').textContent=t.length?'Will use: '+t.join(', '):'No materials set — tap “Edit materials used”.';}
+function drawMade(){const v=$('mp')?$('mp').value:'',qv=$('mq')?$('mq').value:10;
+ $('madeBox').innerHTML=`<label>Product line</label><select id="mp" onchange="prev()">${LN.map(l=>`<option value="${l.id}">${esc(l.n)}</option>`).join('')}</select>
+ <label>How many did you make?</label><input id="mq" type="number" min="1" value="${qv}" oninput="prev()">
+ <div class="chips">${[5,10,20,50].map(n=>`<button class="chip" onclick="$('mq').value=${n};prev()">${n}</button>`).join('')}</div>
+ <p class="sub" id="prev"></p><div class="row" style="margin-top:12px"><button class="act" onclick="made()">Add to stock</button><button class="act ghost" onclick="recipe()">Edit materials used</button></div>`;
+ if(v)$('mp').value=v;prev();
+ $('recent').innerHTML=S.inv.log.slice(0,8).map(l=>`<div class="item"><div class="nm"><b style="font-weight:500">${esc(l.x)}</b></div><span class="sub">${new Date(l.t).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span></div>`).join('')||'<div class="empty">No changes yet.</div>';}
+function made(){const id=$('mp').value,n=+$('mq').value;if(!(n>0))return;const d={['f_'+id]:n},u=S.inv.uses[id]||{};for(const m in u)d[m]=-u[m]*n;iapply(d,'Made '+n+' '+LID(id).n);}
+function dlg(h){$('dc').innerHTML=h;$('dlg').showModal();}
+const closeD=()=>$('dlg').close();
+function recipe(){const id=$('mp').value,u=S.inv.uses[id]||{};
+ dlg(`<h3 style="font-family:var(--serif);color:var(--maroon);margin:0">Used per 1 pc — ${esc(LID(id).n)}</h3><p class="sub">Fractions are fine (e.g. 0.25).</p>`+S.inv.items.filter(i=>i.t!='f').map(i=>`<label>${esc(i.n)} (${esc(i.u)})</label><input data-u="${i.id}" type="number" step="any" value="${u[i.id]||0}">`).join('')+
+ `<div class="row" style="margin-top:14px"><button class="act" onclick="saveRec('${id}')">Save</button><button class="act ghost" onclick="closeD()">Cancel</button></div>`);}
+function saveRec(id){const o={};document.querySelectorAll('[data-u]').forEach(e=>{if(+e.value>0)o[e.dataset.u]=+e.value;});S.inv.uses[id]=o;save();closeD();prev();}
+function itemEd(id){const it=id?ig(id):{id:'i'+Date.now(),n:'',t:'m',loc:'',q:0,min:0,u:'pcs'},fin=it.t=='f';
+ dlg(`<h3 style="font-family:var(--serif);color:var(--maroon);margin:0">${id?'Edit':'Add'} item</h3><label>Name</label><input id="gn" value="${esc(it.n)}">
+ ${fin?'':`<label>Type</label><select id="gt"><option value="m">Raw material</option><option value="p">Packaging</option></select>`}
+ <label>Stored at</label><input id="gl" value="${esc(it.loc)}"><div class="row"><div><label>In stock</label><input id="gq" type="number" step="any" value="${it.q}"></div><div><label>Alert at or below</label><input id="gm" type="number" step="any" value="${it.min}"></div></div>
+ <label>Unit</label><input id="gu" value="${esc(it.u)}"><div class="row" style="margin-top:14px"><button class="act" id="sv">Save</button>${id&&!fin?'<button class="act ghost" id="dl">Delete</button>':''}<button class="act ghost" onclick="closeD()">Cancel</button></div>`);
+ if(!fin)$('gt').value=it.t;
+ $('sv').onclick=()=>{const nm=$('gn').value.trim();if(!nm)return;Object.assign(it,{n:nm,loc:$('gl').value.trim(),q:+$('gq').value||0,min:+$('gm').value||0,u:$('gu').value.trim()||'pcs'});if(!fin)it.t=$('gt').value;if(!id)S.inv.items.push(it);save();closeD();drawStock();drawMade();};
+ if($('dl'))$('dl').onclick=()=>{if(confirm('Delete '+it.n+'?')){S.inv.items=S.inv.items.filter(x=>x.id!=id);save();closeD();drawStock();drawMade();}};}
+
+/* SETUP */
+function drawPrices(){let h='';LN.forEach(l=>{const c=lineCost(l);h+=`<h4>${esc(l.n)} — cost ${rs(c)} per piece</h4>`;
+ [...new Set(l.it.map(i=>i.s))].forEach(s=>{const k=l.id+'|'+s,p=S.px[k]===undefined?(l.t=='memo'?40:0):S.px[k];
+  h+=`<div class="item"><div class="nm"><b>${s}</b><span>${p?'Profit '+rs(p-c)+' ('+Math.round((p-c)/p*100)+'%)':'enter a price'}</span></div><div style="width:110px"><input type="number" min="0" placeholder="₹ price" value="${p||''}" onchange="setPx('${k}',this.value)"></div></div>`;});
+ h+=`<div class="item"><div class="nm"><span>Other cost per piece (printing, ink, tassel…)</span></div><div style="width:110px"><input type="number" min="0" step="any" placeholder="₹" value="${S.ex[l.id]||''}" onchange="setEx('${l.id}',this.value)"></div></div>`;});
+ $('prices').innerHTML=h;
+ $('costs').innerHTML=S.inv.items.filter(i=>i.t!='f').map(i=>`<div class="item"><div class="nm"><b>${esc(i.n)}</b><span>cost per ${esc(i.u)}</span></div><div style="width:110px"><input type="number" min="0" step="any" placeholder="₹" value="${i.cost||''}" onchange="setCost('${i.id}',this.value)"></div></div>`).join('');}
+function setPx(k,v){S.px[k]=parseFloat(v)||0;save();drawList();drawCart();drawPrices();}
+function saveShop(){['Name','Tag','Mail','Social','Loc','Foot'].forEach(f=>S.shop[f]=$('s'+f).value);save();$('sOk').textContent='Saved.';setTimeout(()=>$('sOk').textContent='',1800);}
+function bk(){const t=$('bkT');t.value=JSON.stringify(S);t.select();}
+function rst(){try{const o=JSON.parse($('bkT').value);if(o&&o.inv&&o.px&&confirm('Replace everything with this backup?')){S=o;save();location.reload();}else alert('Not a valid backup.');}catch(e){alert('Not a valid backup.');}}
+
+/* BILL */
+function make(){const T=totals();if(!T.L.length)return alert('Add at least one product.');
+ const nm=$('cName').value.trim()||'Walk-in customer',sp=S.shop,no=$('cNo').value;
+ if(T.L.some(l=>!l.r)&&!confirm('Some items have no price set. Generate the bill anyway?'))return;
+ const rows=T.L.map((l,i)=>`<tr><td>${i+1}</td><td>${esc(l.n)}</td><td class="num">${rs(l.r)}</td><td class="num">${l.q}</td><td class="num">${rs(l.t)}</td></tr>`).join('');
+ const d=$('cDate').value,dt=d?new Date(d+'T00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'';
+ $('bill').innerHTML=`<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><div><h2>${esc(sp.Name||'House of Aku')}</h2><div style="font-size:.82rem;color:#7a6a63">${esc(sp.Tag||'')}<br>${esc(sp.Loc||'')}</div></div>
+ <div style="text-align:right;font-size:.82rem;color:#7a6a63"><div style="font-weight:700;color:#6e1b32;font-size:1rem;letter-spacing:.08em">BILL OF SUPPLY</div>No. ${esc(no||'—')}<br>${dt}</div></div>
+ <div class="meta"><div><div style="font-size:.7rem;letter-spacing:.06em;color:#6e1b32;font-weight:700">BILLED &amp; SHIPPED TO</div><b>${esc(nm)}</b><br>${esc($('cAddr').value).replace(/\n/g,'<br>')}${$('cPhone').value?'<br>'+esc($('cPhone').value):''}</div>
+ <div style="text-align:right"><div style="font-size:.7rem;letter-spacing:.06em;color:#6e1b32;font-weight:700">CONTACT</div>${esc(sp.Mail||'')}<br>${esc(sp.Social||'')}</div></div>
+ <table><thead><tr><th>#</th><th>Item</th><th class="num">Rate</th><th class="num">Qty</th><th class="num">Amount</th></tr></thead><tbody>${rows}</tbody></table>
+ <div class="sumbox"><div class="tot"><span>Subtotal</span><span>${rs(T.sub)}</span></div>${T.dis?`<div class="tot"><span>Discount</span><span>- ${rs(T.dis)}</span></div>`:''}${T.sh?`<div class="tot"><span>Shipping</span><span>${rs(T.sh)}</span></div>`:''}
+ <div class="tot big"><span>Total</span><span>${rs(T.tot)}</span></div><div class="tot" style="color:#7a6a63"><span>Payment</span><span>${esc($('cPay').value)}</span></div></div>
+ <div class="foot">${esc($('cNote').value||'Thank you for your order!')}<br>${esc(sp.Foot||'GST not applicable — unregistered small supplier.')}</div>`;
+ const I=S.inv;let msg='';
+ if(I.done.indexOf(no)<0){const need={};T.L.forEach(l=>{const k='f_'+l.i.l.id;need[k]=(need[k]||0)+l.q;});
+  const dd={},bo={};for(const k in need){const b=Math.max(0,need[k]-ig(k).q);if(b)bo[k.slice(2)]=b;dd[k]=-(need[k]-b);}
+  iapply(dd,'Bill '+no);I.done.push(no);I.done=I.done.slice(-200);
+  const pay=$('cPay').value;
+  saveOrder({id:oid(no),no:no,ts:Date.now(),date:$('cDate').value,name:nm,phone:$('cPhone').value,addr:$('cAddr').value,lines:T.L.map(l=>({c:l.c,n:l.n,lid:l.i.l.id,r:l.r,q:l.q,k:lineCost(l.i.l)})),sub:T.sub,dis:T.dis,sh:T.sh,tot:T.tot,pay:pay,paid:/^Paid/.test(pay),st:'new',track:'',cc:0,bo:bo,h:$('bill').innerHTML});
+  msg=Object.keys(bo).length?'✓ Order saved. Some items were out of stock, so they are on your "What to make" list.':'✓ Order saved and stock updated.';}
+ else msg='This bill number was already saved — stock not changed again.';
+ $('stockMsg').textContent=msg;$('ui').classList.add('hide');$('billWrap').classList.remove('hide');$('bar').classList.add('hide');
+ S.next=(parseInt(no.replace(/\D/g,''))||S.next)+1;save();window.scrollTo(0,0);}
+function back(){$('ui').classList.remove('hide');$('billWrap').classList.add('hide');drawCart();}
+
+/* COSTS, ORDERS, PLAN, REPORT, SYNC */
+const lineCost=l=>{const u=S.inv.uses[l.id]||{};let c=S.ex[l.id]||0;for(const m in u){const it=ig(m);if(it)c+=u[m]*(it.cost||0);}return c;};
+const setEx=(id,v)=>{S.ex[id]=parseFloat(v)||0;save();drawPrices();};
+const setCost=(id,v)=>{ig(id).cost=parseFloat(v)||0;save();drawPrices();};
+function saveOrder(o){S.orders[o.id]=o;save();if(DB)DB.doc('orders/'+o.id).set(clone(o)).then(()=>setSync('ok')).catch(()=>setSync('err'));drawPlan();}
+const ST={new:'To pack',packed:'Packed',shipped:'Shipped',delivered:'Delivered'},NX={new:'packed',packed:'shipped',shipped:'delivered'},NL={new:'Mark packed',packed:'Mark shipped',shipped:'Mark delivered'};
+let oflt='new';
+const ordersArr=()=>Object.values(S.orders).sort((a,b)=>b.ts-a.ts);
+function drawOrders(){const A=ordersArr();
+ const F=[['new','To pack',o=>o.st=='new'],['ship','On the way',o=>o.st=='packed'||o.st=='shipped'],['unpaid','Unpaid',o=>!o.paid],['done','Delivered',o=>o.st=='delivered'],['all','All',o=>true]];
+ $('ochips').innerHTML=F.map(f=>`<button class="chip${oflt==f[0]?' on':''}" onclick="oflt='${f[0]}';drawOrders()">${f[1]} (${A.filter(f[2]).length})</button>`).join('');
+ const fn=F.filter(f=>f[0]==oflt)[0][2],due=A.filter(o=>!o.paid).reduce((a,o)=>a+o.tot,0);
+ $('odue').textContent=due?'Payments pending: '+rs(due):'';
+ $('olist').innerHTML=A.filter(fn).map(o=>`<div class="item"><div class="nm fold" onclick="orderEd('${o.id}')"><b>${esc(o.name)} · ${esc(o.no)}</b><span>${o.date||''} · ${o.lines.reduce((a,l)=>a+l.q,0)} pcs · ${rs(o.tot)} · ${o.paid?'Paid':'<b style="color:var(--bad)">Unpaid</b>'} · ${ST[o.st]}${o.st=='new'&&o.bo&&Object.keys(o.bo).length?' · <b style="color:var(--bad)">needs making</b>':''}</span></div>${NX[o.st]?`<button class="mini" onclick="adv('${o.id}')">${NL[o.st]}</button>`:''}</div>`).join('')||'<div class="empty">No orders here.</div>';}
+function setSt(o,n){if(o.st=='new'&&n!='new'&&o.bo){const d={};for(const l in o.bo)d['f_'+l]=-o.bo[l];if(Object.keys(d).length)iapply(d,'Packed '+o.no);o.bo={};}o.st=n;}
+function adv(id){const o=S.orders[id],n=NX[o.st];if(!n)return;if(n=='shipped'){const t=prompt('Tracking number (optional):',o.track||'');if(t!==null)o.track=t.trim();}setSt(o,n);saveOrder(o);drawOrders();}
+function orderEd(id){const o=S.orders[id];
+ dlg(`<h3 style="font-family:var(--serif);color:var(--maroon);margin:0">${esc(o.name)} · ${esc(o.no)}</h3><p class="sub">${o.lines.map(l=>l.q+' × '+esc(l.c)).join(', ')} — ${rs(o.tot)}</p>
+ <div class="row"><div><label>Status</label><select id="oS">${Object.keys(ST).map(k=>`<option value="${k}">${ST[k]}</option>`).join('')}</select></div><div><label>Payment</label><select id="oP"><option value="1">Paid</option><option value="0">Unpaid / pending</option></select></div></div>
+ <div class="row"><div><label>Courier cost I paid ₹</label><input id="oC" type="number" min="0" value="${o.cc||''}"></div><div><label>Tracking no.</label><input id="oT" value="${esc(o.track||'')}"></div></div>
+ <div class="row" style="margin-top:12px"><button class="act" onclick="saveOrd('${id}')">Save</button><button class="act ghost" onclick="closeD();viewBill('${id}')">View bill</button></div>
+ <h4>Copy a message to the customer</h4><div class="row"><button class="mini" onclick="showMsg('${id}','c')">Confirmation</button><button class="mini" onclick="showMsg('${id}','p')">Payment reminder</button><button class="mini" onclick="showMsg('${id}','s')">Shipped</button></div>
+ <div class="row" style="margin-top:14px"><button class="mini" onclick="delOrd('${id}')">Delete order</button><button class="mini" onclick="closeD()">Close</button></div>`);
+ $('oS').value=o.st;$('oP').value=o.paid?'1':'0';}
+function saveOrd(id){const o=S.orders[id];setSt(o,$('oS').value);o.paid=$('oP').value=='1';o.cc=+$('oC').value||0;o.track=$('oT').value.trim();saveOrder(o);closeD();drawOrders();}
+function delOrd(id){if(!confirm('Delete this order record? Stock is not changed.'))return;delete S.orders[id];save();if(DB)DB.doc('orders/'+id).delete().catch(()=>setSync('err'));closeD();drawOrders();}
+function viewBill(id){$('bill').innerHTML=S.orders[id].h;$('stockMsg').textContent='Saved bill';$('ui').classList.add('hide');$('billWrap').classList.remove('hide');$('bar').classList.add('hide');window.scrollTo(0,0);}
+function showMsg(id,k){const o=S.orders[id],nm=o.name=='Walk-in customer'?'there':o.name,
+ it=o.lines.map(l=>'• '+l.q+' × '+l.n.replace(/ \([^()]*\)$/,'')).join('\n');
+ const t={c:`Hi ${nm}! 🌸 Thank you for ordering from House of Aku.\n\nOrder ${o.no}:\n${it}\nTotal: ${rs(o.tot)} (${o.pay})\n\nI'll pack it soon and share tracking details once it's shipped.`,
+  p:`Hi ${nm}, a gentle reminder that the payment of ${rs(o.tot)} for order ${o.no} is still pending. Please pay by UPI and send me a screenshot so I can ship it right away. Thank you! 🌸`,
+  s:`Hi ${nm}! Your House of Aku order ${o.no} has been shipped 🚚${o.track?'\nTracking: '+o.track:''}\nIt should reach you soon — do tell me when it arrives!`}[k];
+ dlg(`<h3 style="font-family:var(--serif);color:var(--maroon);margin:0">Message</h3><textarea id="mt" style="min-height:190px;margin-top:10px">${esc(t)}</textarea><div class="row" style="margin-top:12px"><button class="act" onclick="cp()">Copy</button><button class="act ghost" onclick="closeD()">Close</button></div>`);$('mt').select();}
+function cp(){const t=$('mt');t.select();try{navigator.clipboard.writeText(t.value).then(()=>alert('Copied!'),()=>document.execCommand('copy'));}catch(e){try{document.execCommand('copy');}catch(e2){}}}
+
+function drawPlan(){const bo={};Object.values(S.orders).forEach(o=>{if(o.st=='new'&&o.bo)for(const l in o.bo)bo[l]=(bo[l]||0)+o.bo[l];});
+ const P=LN.map(l=>{const f=ig('f_'+l.id),b=bo[l.id]||0;return{l,b,q:f.q,n:b+Math.max(0,f.min*2-f.q)};}).filter(p=>p.n>0);
+ const need={};P.forEach(p=>{const u=S.inv.uses[p.l.id]||{};for(const m in u)need[m]=(need[m]||0)+u[m]*p.n;});
+ const buy=Object.keys(need).map(m=>({it:ig(m),d:rnd(need[m]-(ig(m)||{q:0}).q)})).filter(x=>x.it&&x.d>0);
+ const box=$('planBox');if(!box)return;
+ box.innerHTML=(P.map(p=>`<div class="item"><div class="nm"><b>Make ${p.n} × ${esc(p.l.n)}</b><span>${p.b?p.b+' owed to customers · ':''}${p.q} in stock</span></div><button class="mini" onclick="usePlan('${p.l.id}',${p.n})">Log made</button></div>`).join('')||'<div class="empty">Nothing urgent — stock looks fine.</div>')+(buy.length?'<h4>Buy before making</h4>'+buy.map(x=>`<div class="item"><div class="nm"><b>${esc(x.it.n)}</b><span>short by ${x.d} ${esc(x.it.u)}</span></div></div>`).join(''):'');}
+function usePlan(id,n){$('mp').value=id;$('mq').value=n;prev();$('madeBox').scrollIntoView({behavior:'smooth'});}
+const _dm=drawMade;drawMade=function(){_dm();drawPlan();};
+
+function drawReport(){const A=ordersArr(),mk=o=>(o.date||new Date(o.ts).toISOString().slice(0,10)).slice(0,7),ms=[...new Set(A.map(mk))].sort().reverse();
+ const sel=$('rm'),cv=sel.value||'all';
+ sel.innerHTML='<option value="all">All time</option>'+ms.map(m=>`<option value="${m}">${new Date(m+'-01T00:00').toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</option>`).join('');
+ sel.value=ms.concat('all').indexOf(cv)>=0?cv:'all';
+ const L=A.filter(o=>sel.value=='all'||mk(o)==sel.value);
+ let pcs=0,rev=0,cogs=0,cour=0,unp=0;const bl={},bd={};
+ L.forEach(o=>{rev+=o.tot;cour+=o.cc||0;if(!o.paid)unp+=o.tot;o.lines.forEach(l=>{pcs+=l.q;cogs+=(l.k||0)*l.q;const b=bl[l.lid]=bl[l.lid]||{q:0,r:0};b.q+=l.q;b.r+=l.r*l.q;const d=bd[l.c]=bd[l.c]||{n:l.n,q:0};d.q+=l.q;});});
+ const row=(a,b)=>`<div class="tot"><span>${a}</span><span>${b}</span></div>`;
+ const top=Object.keys(bl).sort((a,b)=>bl[b].q-bl[a].q).map(k=>`<div class="item"><div class="nm"><b>${esc(LID(k)?LID(k).n:k)}</b><span>${rs(bl[k].r)} sales</span></div><span class="q">${bl[k].q}</span></div>`).join('');
+ const des=Object.keys(bd).sort((a,b)=>bd[b].q-bd[a].q).slice(0,10).map(k=>`<div class="item"><div class="nm"><b style="font-weight:600">${esc(bd[k].n)}</b></div><span class="q">${bd[k].q}</span></div>`).join('');
+ $('rbox').innerHTML=`<div class="card"><div class="hd">Summary</div><div class="bd">${row('Orders',L.length)}${row('Pieces sold',pcs)}${row('Money in (incl. shipping charged)',rs(rev))}${row('Product cost',cogs?'- '+rs(cogs):'—')}${row('Courier I paid',cour?'- '+rs(cour):'—')}<div class="tot big"><span>Profit</span><span>${rs(rev-cogs-cour)}</span></div>${unp?row('Still to receive',rs(unp)):''}${pcs&&!cogs?'<p class="sub" style="margin-top:8px">Enter your costs in Setup to see true profit.</p>':''}</div></div>
+ <div class="card"><div class="hd">Best-selling lines (pieces)</div><div class="bd">${top||'<div class="empty">No sales yet.</div>'}</div></div>
+ <div class="card"><div class="hd">Top designs (pieces)</div><div class="bd">${des||'<div class="empty">No sales yet.</div>'}</div></div>`;}
+
+function refreshAll(){['Name','Tag','Mail','Social','Loc','Foot'].forEach(f=>$('s'+f).value=S.shop[f]||'');$('cNo').value=num();drawChips();drawList();drawCart();drawStock();drawMade();drawPrices();drawOrders();drawReport();}
+async function initDB(){setSync('wait');
+ try{const db=typeof claude!='undefined'&&await claude.use('db');if(!db){setSync('local');return;}
+  DB=db;const c=await db.doc('app/core').get();
+  if(c.exists){const r=clone(c.data());if((r.ts||0)>(S.ts||0)){S.px=r.px||{};S.shop=r.shop||{};S.next=r.next||1;S.inv=r.inv||S.inv;S.ex=r.ex||{};S.ts=r.ts;}else pushCore();}else pushCore();
+  const os=await db.collection('orders').get(),seen={};
+  os.docs.forEach(d=>{const o=clone(d.data());S.orders[o.id]=o;seen[o.id]=1;});
+  Object.keys(S.orders).forEach(k=>{if(!seen[k])db.doc('orders/'+k).set(clone(S.orders[k]));});
+  try{localStorage.setItem(K,JSON.stringify(S));}catch(e){}
+  refreshAll();setSync('ok');
+ }catch(e){setSync('err');}}
+
+load();$('cDate').valueAsDate=new Date();refreshAll();initDB();
+</script></body></html>
